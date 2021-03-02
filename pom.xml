@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>me.jiniworld</groupId>
 	<artifactId>demo</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<name>demo</name>
 	<description>demo project with Spring Boot 2</description>
 	<properties>
@@ -38,6 +38,16 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
+		<dependency>
+		  <groupId>org.springframework.boot</groupId>
+		  <artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mariadb.jdbc</groupId>
+			<artifactId>mariadb-java-client</artifactId>
+			<scope>runtime</scope>
+		</dependency>	
 	</dependencies>
 
 	<build>
