@@ -23,9 +23,12 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@NoArgsConstructor
 @DynamicInsert @DynamicUpdate
 @Getter @Setter
 @Entity
@@ -74,9 +77,24 @@ public class User implements Serializable {
 	@Column(nullable = true, columnDefinition = "TIMESTAMP DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP")
 	private Date updatedAt;	
 	
+	@Builder
+	public User(String type, String email, String name, String sex, String birthDate, String phoneNumber,
+			String password) {
+		super();
+		this.type = type;
+		this.email = email;
+		this.name = name;
+		this.sex = sex;
+		this.birthDate = birthDate;
+		this.phoneNumber = phoneNumber;
+		this.password = password;
+	}
+	
+	
 	@PrePersist
 	protected void onCreate() {
 		createdAt = Timestamp.valueOf(LocalDateTime.now());
+		active = true;
 	}
 	
 	@PreUpdate

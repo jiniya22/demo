@@ -4,12 +4,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
+import me.jiniworld.demo.domain.dto.request.UserRequest;
 import me.jiniworld.demo.domain.entity.User;
 import me.jiniworld.demo.service.UserService;
 
@@ -19,12 +24,26 @@ import me.jiniworld.demo.service.UserService;
 public class UserController {
 	
 	private final UserService userService;
+	
+	@PostMapping("")
+	public Map<String, Object> insert(@RequestBody @Valid final UserRequest user) {
+		Map<String, Object> response = new HashMap<>();
+		
+		if(userService.insert(user)) {
+			response.put("result", "SUCCESS");	
+		} else {
+			response.put("result", "FAIL");
+			response.put("reason", "이미 등록된 회원 정보입니다.");
+		}
+		
+		return response;
+	}
 
 	@GetMapping("/{id}")
 	public Map<String, Object> findById(@PathVariable("id") long id) {
 		Map<String, Object> response = new HashMap<>();
 
-		Optional<User> oUser = userService.selectById(id);
+		Optional<User> oUser = userService.select(id);
 		if(oUser.isPresent()) {
 			response.put("result", "SUCCESS");
 			response.put("user", oUser.get());
