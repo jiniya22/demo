@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>me.jiniworld</groupId>
 	<artifactId>demo</artifactId>
-	<version>1.0.2</version>
+	<version>1.0.3</version>
 	<name>demo</name>
 	<description>demo project with Spring Boot 2</description>
 	<properties>
@@ -61,6 +61,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
+					<finalName>demo</finalName>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>

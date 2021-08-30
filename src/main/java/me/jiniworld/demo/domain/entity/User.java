@@ -30,7 +30,7 @@ import lombok.Setter;
 
 @NoArgsConstructor
 @DynamicInsert @DynamicUpdate
-@Getter @Setter
+@Getter
 @Entity
 @Table(name = "users", indexes = {@Index(name = "UK_USERS_EMAIL", columnList = "email", unique = true)})
 public class User implements Serializable {
@@ -44,30 +44,30 @@ public class User implements Serializable {
 	
 	@ColumnDefault(value = "0")
 	@Column(nullable = false, length = 1, columnDefinition = "CHAR(1)")
-	private String type;
+	@Setter private String type;
 	
 	@Column(nullable = false, length = 100)
-	private String email;
+	@Setter private String email;
 	
 	@Column(nullable = false, length = 50)
-	private String name;
+	@Setter private String name;
 	
 	@ColumnDefault(value = "1")
 	@Column(nullable = false, length = 1, columnDefinition = "CHAR(1)")
-	private String sex;
+	@Setter private String sex;
 	
 	@Column(nullable = false, length = 6)
-	private String birthDate;
+	@Setter private String birthDate;
 	
 	@Column(nullable = false, length = 20)
-	private String phoneNumber;
+	@Setter private String phoneNumber;
 	
 	@JsonIgnore
 	@Column(nullable = false, length = 150)
-	private String password;
+	@Setter private String password;
 	
 	@Column(nullable = false, columnDefinition = "TINYINT(1) DEFAULT 1")
-	private boolean active;
+	@Setter private boolean active;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")

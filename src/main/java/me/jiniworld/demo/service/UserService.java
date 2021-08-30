@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import me.jiniworld.demo.domain.dto.request.UserRequest;
 import me.jiniworld.demo.domain.entity.User;
 import me.jiniworld.demo.repository.UserRepository;
+import me.jiniworld.demo.util.StringUtils;
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -32,6 +33,40 @@ public class UserService {
 				.phoneNumber(u.getPhoneNumber()).sex(u.getSex()).build());
 		
 		return true;
+	}
+
+	@Transactional
+	public int update(long id, final UserRequest u) {
+		User user = userRepository.findById(id).orElse(new User());
+		if(user.getId() == null)
+			return 0;
+		
+		user.setBirthDate(u.getBirthDate());
+		user.setEmail(u.getEmail());
+		user.setName(u.getName());
+		user.setPassword(u.getPassword());
+		user.setPhoneNumber(u.getPhoneNumber());
+		user.setSex(u.getSex());
+		user.setType(u.getType());
+		userRepository.save(user);
+		return 1;
+	}
+
+	@Transactional
+	public int partialUpdate(long id, final UserRequest u) {
+		User user = userRepository.findById(id).orElse(new User());
+		if(user.getId() == null)
+			return 0;
+		
+		if(StringUtils.isNotBlank(u.getBirthDate())) user.setBirthDate(u.getBirthDate());
+		if(StringUtils.isNotBlank(u.getEmail())) user.setEmail(u.getEmail());
+		if(StringUtils.isNotBlank(u.getName())) user.setName(u.getName());
+		if(StringUtils.isNotBlank(u.getPassword())) user.setPassword(u.getPassword());
+		if(StringUtils.isNotBlank(u.getPhoneNumber())) user.setPhoneNumber(u.getPhoneNumber());
+		if(StringUtils.isNotBlank(u.getSex())) user.setSex(u.getSex());
+		if(StringUtils.isNotBlank(u.getType())) user.setType(u.getType());
+		userRepository.save(user);
+		return 1;
 	}
 	
 }
