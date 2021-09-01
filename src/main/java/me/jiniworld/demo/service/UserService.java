@@ -37,10 +37,11 @@ public class UserService {
 
 	@Transactional
 	public int update(long id, final UserRequest u) {
-		User user = userRepository.findById(id).orElse(new User());
-		if(user.getId() == null)
+		Optional<User> oUser = userRepository.findById(id);
+		if(oUser.isPresent())
 			return 0;
 		
+		User user = oUser.get();
 		user.setBirthDate(u.getBirthDate());
 		user.setEmail(u.getEmail());
 		user.setName(u.getName());
@@ -54,10 +55,11 @@ public class UserService {
 
 	@Transactional
 	public int partialUpdate(long id, final UserRequest u) {
-		User user = userRepository.findById(id).orElse(new User());
-		if(user.getId() == null)
+		Optional<User> oUser = userRepository.findById(id);
+		if(oUser.isPresent())
 			return 0;
 		
+		User user = oUser.get();
 		if(StringUtils.isNotBlank(u.getBirthDate())) user.setBirthDate(u.getBirthDate());
 		if(StringUtils.isNotBlank(u.getEmail())) user.setEmail(u.getEmail());
 		if(StringUtils.isNotBlank(u.getName())) user.setName(u.getName());
