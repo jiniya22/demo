@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -78,6 +79,20 @@ public class UserController {
 
 		int res = userService.partialUpdate(id, user);
 		if(res > 0) {
+			response.put("result", "SUCCESS");
+		} else {
+			response.put("result", "FAIL");
+			response.put("reason", "일치하는 회원 정보가 없습니다. 사용자 id를 확인해주세요.");
+		}
+
+		return response;
+	}
+	
+	@DeleteMapping("/{id}")
+	public Map<String, Object> delete(@PathVariable("id") long id) {
+		Map<String, Object> response = new HashMap<>();
+
+		if(userService.delete(id) > 0) {
 			response.put("result", "SUCCESS");
 		} else {
 			response.put("result", "FAIL");

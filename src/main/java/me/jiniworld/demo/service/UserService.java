@@ -71,4 +71,14 @@ public class UserService {
 		return 1;
 	}
 	
+	@Transactional
+	public int delete(long id) {
+		Optional<User> oUser = userRepository.findById(id);
+		if(oUser.isPresent()) {
+			userRepository.delete(oUser.get());
+			return 1;
+		}
+		return 0;
+	}
+	
 }
