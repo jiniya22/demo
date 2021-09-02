@@ -38,7 +38,7 @@ public class UserService {
 	@Transactional
 	public int update(long id, final UserRequest u) {
 		Optional<User> oUser = userRepository.findById(id);
-		if(oUser.isPresent())
+		if(!oUser.isPresent())
 			return 0;
 		
 		User user = oUser.get();
@@ -56,7 +56,7 @@ public class UserService {
 	@Transactional
 	public int partialUpdate(long id, final UserRequest u) {
 		Optional<User> oUser = userRepository.findById(id);
-		if(oUser.isPresent())
+		if(!oUser.isPresent())
 			return 0;
 		
 		User user = oUser.get();
