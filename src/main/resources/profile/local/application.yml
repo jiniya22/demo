@@ -13,7 +13,6 @@ spring:
       connection-test-query: SELECT 1
       minimum-idle: 10
       maximum-pool-size: 50
-      transaction-isolation: TRANSACTION_READ_UNCOMMITTED
       pool-name: pool-jiniworld_demo
   jpa:
     database-platform: org.hibernate.dialect.MariaDB103Dialect
@@ -27,3 +26,20 @@ spring:
     show-sql: true
 server:
   port: 8989
+
+springdoc:
+  version: '@project.version@'
+  api-docs:
+    path: /api-docs
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+  swagger-ui:
+    operations-sorter: alpha
+    tags-sorter: alpha
+    path: /swagger-ui.html
+    disable-swagger-default-url: true
+    display-query-params-without-oauth2: true
+    doc-expansion: none
+    use-management-port: true
+  paths-to-match:
+    - /api/**
