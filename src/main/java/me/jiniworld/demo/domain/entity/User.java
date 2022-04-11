@@ -32,18 +32,18 @@ import lombok.Setter;
 @DynamicInsert @DynamicUpdate
 @Getter
 @Entity
-@Table(name = "users", indexes = {@Index(name = "UK_USERS_EMAIL", columnList = "email", unique = true)})
+@Table(name = "user", indexes = {@Index(name = "UK_USER_EMAIL", columnList = "email", unique = true)})
 public class User implements Serializable {
 	
 	private static final long serialVersionUID = -4253749884585192245L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(updatable = false, nullable = false, columnDefinition = "INT UNSIGNED")
+	@Column(updatable = false, nullable = false)
 	private Long id;
 	
-	@ColumnDefault(value = "0")
-	@Column(nullable = false, length = 1, columnDefinition = "CHAR(1)")
+	@Column(nullable = false, length = 10)
+	@ColumnDefault("'BASIC'")
 	@Setter private String type;
 	
 	@Column(nullable = false, length = 100)
@@ -52,11 +52,11 @@ public class User implements Serializable {
 	@Column(nullable = false, length = 50)
 	@Setter private String name;
 	
-	@ColumnDefault(value = "1")
-	@Column(nullable = false, length = 1, columnDefinition = "CHAR(1)")
+	@Column(nullable = false, length = 1)
+	@ColumnDefault("'M'")
 	@Setter private String sex;
 	
-	@Column(nullable = false, length = 6)
+	@Column(length = 6)
 	@Setter private String birthDate;
 	
 	@Column(nullable = false, length = 20)
@@ -66,15 +66,16 @@ public class User implements Serializable {
 	@Column(nullable = false, length = 150)
 	@Setter private String password;
 	
-	@Column(nullable = false, columnDefinition = "TINYINT(1) DEFAULT 1")
+	@Column(nullable = false)
+	@ColumnDefault("1")
 	@Setter private boolean active;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	@Column(nullable = false, updatable = false)
+	@ColumnDefault("CURRENT_TIMESTAMP()")
 	private Date createdAt;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(nullable = true, columnDefinition = "TIMESTAMP DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP")
 	private Date updatedAt;	
 	
 	@Builder
