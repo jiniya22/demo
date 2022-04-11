@@ -1,38 +1,27 @@
 package me.jiniworld.demo.domain.entity;
 
-import java.io.Serializable;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Index;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.Where;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @NoArgsConstructor
 @DynamicInsert @DynamicUpdate
 @Getter
 @Entity
 @Table(name = "user", indexes = {@Index(name = "UK_USER_EMAIL", columnList = "email", unique = true)})
+@Where(clause = "active = true")
 public class User implements Serializable {
 	
 	private static final long serialVersionUID = -4253749884585192245L;
@@ -67,7 +56,7 @@ public class User implements Serializable {
 	@Setter private String password;
 	
 	@Column(nullable = false)
-	@ColumnDefault("1")
+	@ColumnDefault("true")
 	@Setter private boolean active;
 	
 	@Temporal(TemporalType.TIMESTAMP)
@@ -76,7 +65,7 @@ public class User implements Serializable {
 	private Date createdAt;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date updatedAt;	
+	private Date updatedAt;
 	
 	@Builder
 	public User(String type, String email, String name, String sex, String birthDate, String phoneNumber,
