@@ -14,7 +14,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @NoArgsConstructor
 @DynamicInsert @DynamicUpdate
@@ -45,7 +47,7 @@ public class User implements Serializable {
 	@ColumnDefault("'M'")
 	@Setter private String sex;
 	
-	@Column(length = 6)
+	@Column(length = 8)
 	@Setter private String birthDate;
 	
 	@Column(nullable = false, length = 20)
@@ -66,7 +68,12 @@ public class User implements Serializable {
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updatedAt;
-	
+
+	@JsonIgnore
+	@OneToMany
+	@JoinColumn(name = "user_id")
+	@Setter private List<Store> stores = new ArrayList<>();
+
 	@Builder
 	public User(String type, String email, String name, String sex, String birthDate, String phoneNumber,
 			String password) {
