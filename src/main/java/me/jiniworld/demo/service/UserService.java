@@ -18,8 +18,9 @@ public class UserService {
 	
 	private final UserRepository userRepository;
 
-	public Optional<User> select(Long id) {
-		return userRepository.findById(id);
+	public User select(Long id) {
+		User user = userRepository.findWithStoresById(id).orElse(null);
+		return user;
 	}
 
 	@Transactional
@@ -29,7 +30,7 @@ public class UserService {
 		}
 		userRepository.save(User.builder()
 				.birthDate(u.getBirthDate()).email(u.getEmail())
-				.name(u.getName()).password(u.getPassword())
+				.name(u.getName()).password(u.getPassword()).type(u.getType())
 				.phoneNumber(u.getPhoneNumber()).sex(u.getSex()).build());
 		
 		return true;

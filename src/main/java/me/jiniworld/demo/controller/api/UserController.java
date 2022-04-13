@@ -46,10 +46,10 @@ public class UserController {
 	public Map<String, Object> select(@PathVariable("id") long id) {
 		Map<String, Object> response = new HashMap<>();
 
-		Optional<User> oUser = userService.select(id);
-		if(oUser.isPresent()) {
+		User user = userService.select(id);
+		if(user != null) {
 			response.put("result", "SUCCESS");
-			response.put("user", oUser.get());
+			response.put("user", user);
 		} else {
 			response.put("result", "FAIL");
 			response.put("reason", "일치하는 회원 정보가 없습니다. 사용자 id를 확인해주세요.");

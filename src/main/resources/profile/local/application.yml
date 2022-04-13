@@ -24,6 +24,9 @@ spring:
         physical_naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
     open-in-view: false
     show-sql: true
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
 server:
   port: 8989
 
