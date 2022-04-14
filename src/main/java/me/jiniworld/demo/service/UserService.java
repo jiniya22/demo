@@ -19,7 +19,7 @@ public class UserService {
 	private final UserRepository userRepository;
 
 	public User select(Long id) {
-		User user = userRepository.findWithStoresById(id).orElse(null);
+		User user = userRepository.findById(id).orElse(null);
 		return user;
 	}
 
