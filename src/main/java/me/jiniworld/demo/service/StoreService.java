@@ -16,7 +16,7 @@ public class StoreService {
 	private final StoreRepository storeRepository;
 
 	public List<Store> select() {
-		List<Store> stores = storeRepository.findAll();
+		List<Store> stores = storeRepository.findDistinctWithUserBy();
 //		stores.stream().forEach(store -> Optional.ofNullable(store.getUser()).map(User::getName));
 		return stores;
 	}

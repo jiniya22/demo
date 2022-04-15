@@ -14,6 +14,8 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
     @EntityGraph(attributePaths = "user", type = EntityGraph.EntityGraphType.LOAD)
     Optional<Store> findDistinctWithUserById(Long id);
 
-    @Query("SELECT DISTINCT s FROM Store s join fetch s.user")
-    List<Store> findAll();
+//    @Query("SELECT DISTINCT s FROM Store s join fetch s.user")
+    @EntityGraph(attributePaths = "user")
+    List<Store> findDistinctWithUserBy();
+
 }
