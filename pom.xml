@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>me.jiniworld</groupId>
 	<artifactId>demo</artifactId>
-	<version>1.0.5</version>
+	<version>1.0.6</version>
 	<name>demo</name>
 	<description>demo project with Spring Boot 2</description>
 	<properties>
@@ -90,7 +90,7 @@
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-ui</artifactId>
-			<version>1.6.6</version>
+			<version>1.6.7</version>
 		</dependency>
 	</dependencies>
 

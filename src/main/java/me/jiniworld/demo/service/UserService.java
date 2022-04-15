@@ -1,25 +1,34 @@
 package me.jiniworld.demo.service;
 
-import java.util.Optional;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import lombok.RequiredArgsConstructor;
 import me.jiniworld.demo.domain.dto.request.UserRequest;
 import me.jiniworld.demo.domain.entity.User;
 import me.jiniworld.demo.repository.UserRepository;
 import me.jiniworld.demo.util.StringUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Service
 public class UserService {
-	
+
 	private final UserRepository userRepository;
 
+	public List<User> selectAll() {
+		List<User> users = userRepository.findAll();
+		users.stream()
+				.forEach(user -> user.getStores().stream()
+						.filter(store -> store != null)
+						.forEach(store -> store.getName()));
+		return users;
+	}
+
 	public User select(Long id) {
-		User user = userRepository.findById(id).orElse(null);
+		User user = userRepository.findDistinctWithStoresById(id).orElse(null);
 		return user;
 	}
 
@@ -32,7 +41,7 @@ public class UserService {
 				.birthDate(u.getBirthDate()).email(u.getEmail())
 				.name(u.getName()).password(u.getPassword()).type(u.getType())
 				.phoneNumber(u.getPhoneNumber()).sex(u.getSex()).build());
-		
+
 		return true;
 	}
 
@@ -41,7 +50,7 @@ public class UserService {
 		Optional<User> oUser = userRepository.findById(id);
 		if(!oUser.isPresent())
 			return 0;
-		
+
 		User user = oUser.get();
 		user.setBirthDate(u.getBirthDate());
 		user.setEmail(u.getEmail());
@@ -59,7 +68,7 @@ public class UserService {
 		Optional<User> oUser = userRepository.findById(id);
 		if(!oUser.isPresent())
 			return 0;
-		
+
 		User user = oUser.get();
 		if(StringUtils.isNotBlank(u.getBirthDate())) user.setBirthDate(u.getBirthDate());
 		if(StringUtils.isNotBlank(u.getEmail())) user.setEmail(u.getEmail());
@@ -71,7 +80,7 @@ public class UserService {
 		userRepository.save(user);
 		return 1;
 	}
-	
+
 	@Transactional
 	public int delete(long id) {
 		Optional<User> oUser = userRepository.findById(id);
@@ -81,5 +90,5 @@ public class UserService {
 		}
 		return 0;
 	}
-	
+
 }

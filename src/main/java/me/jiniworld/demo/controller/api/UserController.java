@@ -1,6 +1,7 @@
 package me.jiniworld.demo.controller.api;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -27,7 +28,18 @@ import me.jiniworld.demo.service.UserService;
 public class UserController {
 	
 	private final UserService userService;
-	
+
+	@GetMapping("")
+	public Map<String, Object> selectAll() {
+		Map<String, Object> response = new HashMap<>();
+
+		List<User> users = userService.selectAll();
+		response.put("result", "SUCCESS");
+		response.put("user", users);
+
+		return response;
+	}
+
 	@PostMapping("")
 	public Map<String, Object> insert(@RequestBody @Valid final UserRequest user) {
 		Map<String, Object> response = new HashMap<>();

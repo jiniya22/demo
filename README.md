@@ -22,3 +22,4 @@ Demo Web Application with Spring Data JPA
 1. [JPA CRUD - 2. 회원수정, 삭제 API 만들기](https://blog.jiniworld.me/139)
 1. [Swagger를 이용한 REST API 자동 문서화 (OpenAPI 3)](https://blog.jiniworld.me/145)
 1. [LazyInitializationException 해결하기 1. @ManyToOne](https://blog.jiniworld.me/151)
+1. [LazyInitializationException 해결하기 2. @OneToMany](https://blog.jiniworld.me/152)
