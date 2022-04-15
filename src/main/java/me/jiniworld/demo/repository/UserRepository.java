@@ -1,17 +1,11 @@
 package me.jiniworld.demo.repository;
 
 
+import me.jiniworld.demo.domain.entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import java.util.Optional;
 
-import org.springframework.data.repository.Repository;
-
-import me.jiniworld.demo.domain.entity.User;
-
-public interface UserRepository extends Repository<User, Long> {
-
-	Optional<User> findById(Long id);
-	User save(User user);
+public interface UserRepository extends JpaRepository<User, Long> {
 	Optional<User> findByEmail(String email);
-	void delete(User user);
-	
 }

@@ -69,7 +69,6 @@ public class User implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updatedAt;
 
-	@JsonIgnore
 	@OneToMany
 	@JoinColumn(name = "user_id")
 	@Setter private List<Store> stores = new ArrayList<>();
