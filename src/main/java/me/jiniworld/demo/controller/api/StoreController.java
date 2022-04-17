@@ -33,12 +33,12 @@ public class StoreController {
 		Map<String, Object> response = new HashMap<>();
 
 		Store store = storeService.select(id);
-			if(store != null) {
+		if(store != null) {
 			response.put("result", "SUCCESS");
 			response.put("store", store);
 		} else {
 			response.put("result", "FAIL");
-			response.put("reason", "일치하는 가게 정보가 없습니다. 사용자 id를 확인해주세요.");
+			response.put("reason", "일치하는 가게 정보가 없습니다. 가게 id를 확인해주세요.");
 		}
 
 		return response;
