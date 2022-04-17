@@ -1,14 +1,16 @@
 package me.jiniworld.demo.controller.api;
 
 import lombok.RequiredArgsConstructor;
+import me.jiniworld.demo.domain.dto.response.BaseResponse;
+import me.jiniworld.demo.domain.dto.response.DataResponse;
 import me.jiniworld.demo.domain.entity.Store;
-import me.jiniworld.demo.domain.entity.User;
 import me.jiniworld.demo.service.StoreService;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @RequestMapping(path = "/api/stores")
@@ -18,30 +20,17 @@ public class StoreController {
 	private final StoreService storeService;
 
 	@GetMapping("")
-	public Map<String, Object> selectAll() {
-		Map<String, Object> response = new HashMap<>();
-
+	public DataResponse<List<Store>> selectAll() {
 		List<Store> stores = storeService.select();
-		response.put("result", "SUCCESS");
-		response.put("stores", stores);
-
-		return response;
+		return new DataResponse<>(stores);
 	}
 
 	@GetMapping("/{id}")
-	public Map<String, Object> select(@PathVariable("id") long id) {
-		Map<String, Object> response = new HashMap<>();
-
+	public BaseResponse select(@PathVariable("id") long id) {
 		Store store = storeService.select(id);
 		if(store != null) {
-			response.put("result", "SUCCESS");
-			response.put("store", store);
-		} else {
-			response.put("result", "FAIL");
-			response.put("reason", "일치하는 가게 정보가 없습니다. 가게 id를 확인해주세요.");
+			return new DataResponse<>(store);
 		}
-
-		return response;
+		return new BaseResponse("일치하는 가게 정보가 없습니다. 가게 id를 확인해주세요.");
 	}
-	
 }

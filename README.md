@@ -23,3 +23,4 @@ Demo Web Application with Spring Data JPA
 1. [Swagger를 이용한 REST API 자동 문서화 (OpenAPI 3)](https://blog.jiniworld.me/145)
 1. [LazyInitializationException 해결하기 1. @ManyToOne](https://blog.jiniworld.me/151)
 1. [LazyInitializationException 해결하기 2. @OneToMany](https://blog.jiniworld.me/152)
+1. [Generic을 이용하여 Response 일반화하기](https://blog.jiniworld.me/153)
