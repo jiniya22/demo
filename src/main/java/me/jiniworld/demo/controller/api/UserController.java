@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import me.jiniworld.demo.domain.dto.request.UserRequest;
 import me.jiniworld.demo.domain.dto.response.BaseResponse;
 import me.jiniworld.demo.domain.dto.response.DataResponse;
-import me.jiniworld.demo.domain.entity.User;
+import me.jiniworld.demo.domain.dto.response.data.UserData;
 import me.jiniworld.demo.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +19,8 @@ public class UserController {
 	private final UserService userService;
 
 	@GetMapping("")
-	public DataResponse<List<User>> selectAll() {
-		List<User> users = userService.selectAll();
+	public DataResponse<List<UserData.UserSimple>> selectAll() {
+		List<UserData.UserSimple> users = userService.selectAll();
 		return new DataResponse<>(users);
 	}
 
@@ -31,7 +31,7 @@ public class UserController {
 	}
 
 	@GetMapping("/{id}")
-	public DataResponse<User> select(@PathVariable("id") long id) {
+	public DataResponse<UserData.UserDetail> select(@PathVariable("id") long id) {
 		return new DataResponse<>(userService.select(id));
 	}
 

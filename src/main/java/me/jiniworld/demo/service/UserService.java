@@ -2,6 +2,7 @@ package me.jiniworld.demo.service;
 
 import lombok.RequiredArgsConstructor;
 import me.jiniworld.demo.domain.dto.request.UserRequest;
+import me.jiniworld.demo.domain.dto.response.data.UserData;
 import me.jiniworld.demo.domain.entity.User;
 import me.jiniworld.demo.repository.UserRepository;
 import me.jiniworld.demo.util.InvalidInputException;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -20,19 +21,14 @@ public class UserService {
 
 	private final UserRepository userRepository;
 
-	public List<User> selectAll() {
-		List<User> users = userRepository.findAll();
-		users.stream()
-				.forEach(user -> user.getStores().stream()
-						.filter(store -> store != null)
-						.forEach(store -> store.getName()));
-		return users;
+	public List<UserData.UserSimple> selectAll() {
+		return userRepository.findAll()
+				.stream().map(UserData.UserSimple::new).collect(Collectors.toList());
 	}
 
-	public User select(Long id) {
-		User user = userRepository.findDistinctWithStoresById(id)
-				.orElseThrow(() -> new InvalidInputException(MessageUtils.INVALID_USER_ID));
-		return user;
+	public UserData.UserDetail select(Long id) {
+		User user = userRepository.findById(id).orElseThrow(() -> new InvalidInputException(MessageUtils.INVALID_USER_ID));
+		return new UserData.UserDetail(user);
 	}
 
 	@Transactional

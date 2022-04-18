@@ -25,4 +25,5 @@ Demo Web Application with Spring Data JPA
 10. [LazyInitializationException 해결하기 2. @OneToMany](https://blog.jiniworld.me/152)
 11. [Generic을 이용하여 Response 일반화하기](https://blog.jiniworld.me/153)
 12. [@ControllerAdvice와 @ExceptionHandler를 이용한 전역 Error Handling](https://blog.jiniworld.me/154)
+13. [Response 전용 DTO 클래스 이용하기](https://blog.jiniworld.me/155)
 

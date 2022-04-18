@@ -8,6 +8,11 @@ import lombok.Setter;
 
 @Getter @Setter
 public class UserRequest {
-	@NotNull private String type, email, name, 
-		sex, birthDate, phoneNumber, password;
+	@NotNull private String type;
+	private String email;
+	private String name;
+	private String sex;
+	private String birthDate;
+	private String phoneNumber;
+	private String password;
 }
