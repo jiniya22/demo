@@ -18,6 +18,7 @@ spring:
     database-platform: org.hibernate.dialect.MariaDB103Dialect
     properties:
       hibernate:
+        default_batch_fetch_size: 100
         format_sql: true
         hbm2ddl.auto: update
         implicit_naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
