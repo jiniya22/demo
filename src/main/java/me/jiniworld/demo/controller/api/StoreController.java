@@ -1,7 +1,6 @@
 package me.jiniworld.demo.controller.api;
 
 import lombok.RequiredArgsConstructor;
-import me.jiniworld.demo.domain.dto.response.BaseResponse;
 import me.jiniworld.demo.domain.dto.response.DataResponse;
 import me.jiniworld.demo.domain.entity.Store;
 import me.jiniworld.demo.service.StoreService;
@@ -26,11 +25,7 @@ public class StoreController {
 	}
 
 	@GetMapping("/{id}")
-	public BaseResponse select(@PathVariable("id") long id) {
-		Store store = storeService.select(id);
-		if(store != null) {
-			return new DataResponse<>(store);
-		}
-		return new BaseResponse("일치하는 가게 정보가 없습니다. 가게 id를 확인해주세요.");
+	public DataResponse<Store> select(@PathVariable("id") long id) {
+		return new DataResponse<>(storeService.select(id));
 	}
 }

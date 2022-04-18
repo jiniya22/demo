@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import me.jiniworld.demo.domain.dto.request.UserRequest;
 import me.jiniworld.demo.domain.entity.User;
 import me.jiniworld.demo.repository.UserRepository;
+import me.jiniworld.demo.util.InvalidInputException;
+import me.jiniworld.demo.util.MessageUtils;
 import me.jiniworld.demo.util.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,30 +30,26 @@ public class UserService {
 	}
 
 	public User select(Long id) {
-		User user = userRepository.findDistinctWithStoresById(id).orElse(null);
+		User user = userRepository.findDistinctWithStoresById(id)
+				.orElseThrow(() -> new InvalidInputException(MessageUtils.INVALID_USER_ID));
 		return user;
 	}
 
 	@Transactional
-	public boolean insert(final UserRequest u) {
+	public void insert(final UserRequest u) {
 		if(userRepository.findByEmail(u.getEmail()).isPresent()) {
-			return false;
+			throw new InvalidInputException(MessageUtils.DUPLICATE_USER_EMAIL);
 		}
 		userRepository.save(User.builder()
 				.birthDate(u.getBirthDate()).email(u.getEmail())
 				.name(u.getName()).password(u.getPassword()).type(u.getType())
 				.phoneNumber(u.getPhoneNumber()).sex(u.getSex()).build());
-
-		return true;
 	}
 
 	@Transactional
-	public int update(long id, final UserRequest u) {
-		Optional<User> oUser = userRepository.findById(id);
-		if(!oUser.isPresent())
-			return 0;
-
-		User user = oUser.get();
+	public void update(long id, final UserRequest u) {
+		User user = userRepository.findById(id)
+				.orElseThrow(() -> new InvalidInputException(MessageUtils.INVALID_USER_ID));
 		user.setBirthDate(u.getBirthDate());
 		user.setEmail(u.getEmail());
 		user.setName(u.getName());
@@ -60,16 +58,12 @@ public class UserService {
 		user.setSex(u.getSex());
 		user.setType(u.getType());
 		userRepository.save(user);
-		return 1;
 	}
 
 	@Transactional
-	public int partialUpdate(long id, final UserRequest u) {
-		Optional<User> oUser = userRepository.findById(id);
-		if(!oUser.isPresent())
-			return 0;
-
-		User user = oUser.get();
+	public void partialUpdate(long id, final UserRequest u) {
+		User user = userRepository.findById(id)
+				.orElseThrow(() -> new InvalidInputException(MessageUtils.INVALID_USER_ID));
 		if(StringUtils.isNotBlank(u.getBirthDate())) user.setBirthDate(u.getBirthDate());
 		if(StringUtils.isNotBlank(u.getEmail())) user.setEmail(u.getEmail());
 		if(StringUtils.isNotBlank(u.getName())) user.setName(u.getName());
@@ -78,17 +72,12 @@ public class UserService {
 		if(StringUtils.isNotBlank(u.getSex())) user.setSex(u.getSex());
 		if(StringUtils.isNotBlank(u.getType())) user.setType(u.getType());
 		userRepository.save(user);
-		return 1;
 	}
 
 	@Transactional
-	public int delete(long id) {
-		Optional<User> oUser = userRepository.findById(id);
-		if(oUser.isPresent()) {
-			userRepository.delete(oUser.get());
-			return 1;
-		}
-		return 0;
+	public void delete(long id) {
+		User user = userRepository.findById(id)
+				.orElseThrow(() -> new InvalidInputException(MessageUtils.INVALID_USER_ID));
+		userRepository.delete(user);
 	}
-
 }

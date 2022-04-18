@@ -3,6 +3,8 @@ package me.jiniworld.demo.service;
 import lombok.RequiredArgsConstructor;
 import me.jiniworld.demo.domain.entity.Store;
 import me.jiniworld.demo.repository.StoreRepository;
+import me.jiniworld.demo.util.InvalidInputException;
+import me.jiniworld.demo.util.MessageUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,8 +23,9 @@ public class StoreService {
 		return stores;
 	}
 
-	public Store select(Long id) {
-		Store store = storeRepository.findDistinctWithUserById(id).orElse(null);
+		public Store select(Long id) {
+		Store store = storeRepository.findDistinctWithUserById(id)
+				.orElseThrow(() -> new InvalidInputException(MessageUtils.INVALID_STORE_ID));
 		return store;
 	}
 	

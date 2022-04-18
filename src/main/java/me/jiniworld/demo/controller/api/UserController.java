@@ -26,43 +26,31 @@ public class UserController {
 
 	@PostMapping("")
 	public BaseResponse insert(@RequestBody @Valid final UserRequest user) {
-		if(userService.insert(user)) {
-			return new BaseResponse();
-		}
-		return new BaseResponse("이미 등록된 회원 정보입니다.");
+		userService.insert(user);
+		return new BaseResponse();
 	}
 
 	@GetMapping("/{id}")
-	public BaseResponse select(@PathVariable("id") long id) {
-		User user = userService.select(id);
-		if(user != null) {
-			return new DataResponse<>(user);
-		}
-		return new BaseResponse("일치하는 회원 정보가 없습니다. 사용자 id를 확인해주세요.");
+	public DataResponse<User> select(@PathVariable("id") long id) {
+		return new DataResponse<>(userService.select(id));
 	}
 
 	@PutMapping("/{id}")
 	public BaseResponse update(@PathVariable("id") long id, @RequestBody @Valid final UserRequest user) {
-		if(userService.update(id, user) > 0) {
-			return new BaseResponse();
-		}
-		return new BaseResponse("일치하는 회원 정보가 없습니다. 사용자 id를 확인해주세요.");
+		userService.update(id, user);
+		return new BaseResponse();
 	}
 	
 	@PatchMapping("/{id}")
 	public BaseResponse partialUpdate(@PathVariable("id") long id, @RequestBody final UserRequest user) {
-		if(userService.partialUpdate(id, user) > 0) {
-			return new BaseResponse();
-		}
-		return new BaseResponse("일치하는 회원 정보가 없습니다. 사용자 id를 확인해주세요.");
+		userService.partialUpdate(id, user);
+		return new BaseResponse();
 	}
 	
 	@DeleteMapping("/{id}")
 	public BaseResponse delete(@PathVariable("id") long id) {
-		if(userService.delete(id) > 0) {
-			return new BaseResponse();
-		}
-		return new BaseResponse("일치하는 회원 정보가 없습니다. 사용자 id를 확인해주세요.");
+		userService.delete(id);
+		return new BaseResponse();
 	}
 	
 }
