@@ -37,8 +37,6 @@ springdoc:
     path: /api-docs
   default-consumes-media-type: application/json
   default-produces-media-type: application/json
-  packages-to-exclude:
-    - me.jiniworld.demo.domain.entity
   swagger-ui:
     operations-sorter: alpha
     tags-sorter: alpha
