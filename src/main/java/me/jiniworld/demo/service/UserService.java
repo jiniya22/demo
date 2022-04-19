@@ -26,9 +26,9 @@ public class UserService {
 				.stream().map(UserData.UserSimple::new).collect(Collectors.toList());
 	}
 
-	public UserData.UserDetail select(Long id) {
+	public UserData.User select(Long id) {
 		User user = userRepository.findById(id).orElseThrow(() -> new InvalidInputException(MessageUtils.INVALID_USER_ID));
-		return new UserData.UserDetail(user);
+		return new UserData.User(user);
 	}
 
 	@Transactional
@@ -36,7 +36,7 @@ public class UserService {
 		if(userRepository.findByEmail(u.getEmail()).isPresent()) {
 			throw new InvalidInputException(MessageUtils.DUPLICATE_USER_EMAIL);
 		}
-		userRepository.save(User.builder()
+		userRepository.save(me.jiniworld.demo.domain.entity.User.builder()
 				.birthDate(u.getBirthDate()).email(u.getEmail())
 				.name(u.getName()).password(u.getPassword()).type(u.getType())
 				.phoneNumber(u.getPhoneNumber()).sex(u.getSex()).build());

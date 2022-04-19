@@ -2,7 +2,6 @@ package me.jiniworld.demo.domain.dto.response.data;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import me.jiniworld.demo.domain.entity.User;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,13 +27,13 @@ public class UserData {
     }
 
     @Data
-    public static class UserDetail extends UserSimple {
+    public static class User extends UserSimple {
         private String sex;
         private String birthDate;
         private String phoneNumber;
         private List<StoreData.StoreSimple> stores;
 
-        public UserDetail(User u) {
+        public User(me.jiniworld.demo.domain.entity.User u) {
             super(u);
             this.sex = u.getSex();
             this.birthDate = u.getBirthDate();

@@ -31,7 +31,7 @@ public class UserController {
 	}
 
 	@GetMapping("/{id}")
-	public DataResponse<UserData.UserDetail> select(@PathVariable("id") long id) {
+	public DataResponse<UserData.User> select(@PathVariable("id") long id) {
 		return new DataResponse<>(userService.select(id));
 	}
 

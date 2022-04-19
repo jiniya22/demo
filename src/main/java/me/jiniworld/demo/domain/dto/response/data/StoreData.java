@@ -2,7 +2,6 @@ package me.jiniworld.demo.domain.dto.response.data;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import me.jiniworld.demo.domain.entity.Store;
 
 import java.util.Optional;
 
@@ -17,7 +16,7 @@ public class StoreData {
         private String name;
         private String industry;
 
-        public StoreSimple(Store s) {
+        public StoreSimple(me.jiniworld.demo.domain.entity.Store s) {
             this.id = s.getId();
             this.name = s.getName();
             this.industry = s.getIndustry();
@@ -25,9 +24,9 @@ public class StoreData {
     }
 
     @Data
-    public static class StoreDetail extends StoreSimple {
+    public static class Store extends StoreSimple {
         private UserData.UserSimple user;
-        public StoreDetail(Store s) {
+        public Store(me.jiniworld.demo.domain.entity.Store s) {
             super(s);
             this.user = new UserData.UserSimple(Optional.ofNullable(s.getUser()).orElse(null));
         }

@@ -25,7 +25,7 @@ public class StoreController {
 	}
 
 	@GetMapping("/{id}")
-	public DataResponse<StoreData.StoreDetail> select(@PathVariable("id") long id) {
+	public DataResponse<StoreData.Store> select(@PathVariable("id") long id) {
 		return new DataResponse<>(storeService.select(id));
 	}
 }

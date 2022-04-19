@@ -24,10 +24,10 @@ public class StoreService {
 		return stores.stream().map(StoreData.StoreSimple::new).collect(Collectors.toList());
 	}
 
-	public StoreData.StoreDetail select(Long id) {
+	public StoreData.Store select(Long id) {
 		Store store = storeRepository.findDistinctWithUserById(id)
 				.orElseThrow(() -> new InvalidInputException(MessageUtils.INVALID_STORE_ID));
-		return new StoreData.StoreDetail(store);
+		return new StoreData.Store(store);
 	}
 	
 }
