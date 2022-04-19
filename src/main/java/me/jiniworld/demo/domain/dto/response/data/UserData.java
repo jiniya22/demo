@@ -1,8 +1,10 @@
 package me.jiniworld.demo.domain.dto.response.data;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,7 +31,7 @@ public class UserData {
     @Data
     public static class User extends UserSimple {
         private String sex;
-        private String birthDate;
+        private LocalDate birthDate;
         private String phoneNumber;
         private List<StoreData.StoreSimple> stores;
 

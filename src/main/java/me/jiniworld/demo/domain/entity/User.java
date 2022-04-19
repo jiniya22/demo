@@ -13,6 +13,7 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,9 +47,8 @@ public class User implements Serializable {
 	@Column(nullable = false, length = 1)
 	@ColumnDefault("'M'")
 	@Setter private String sex;
-	
-	@Column(length = 8)
-	@Setter private String birthDate;
+
+	@Setter private LocalDate birthDate;
 	
 	@Column(nullable = false, length = 20)
 	@Setter private String phoneNumber;
@@ -75,7 +75,7 @@ public class User implements Serializable {
 	@Setter private List<Store> stores = new ArrayList<>();
 
 	@Builder
-	public User(String type, String email, String name, String sex, String birthDate, String phoneNumber,
+	public User(String type, String email, String name, String sex, LocalDate birthDate, String phoneNumber,
 			String password) {
 		super();
 		this.type = type;

@@ -36,7 +36,7 @@ public class UserService {
 		if(userRepository.findByEmail(u.getEmail()).isPresent()) {
 			throw new InvalidInputException(MessageUtils.DUPLICATE_USER_EMAIL);
 		}
-		userRepository.save(me.jiniworld.demo.domain.entity.User.builder()
+		userRepository.save(User.builder()
 				.birthDate(u.getBirthDate()).email(u.getEmail())
 				.name(u.getName()).password(u.getPassword()).type(u.getType())
 				.phoneNumber(u.getPhoneNumber()).sex(u.getSex()).build());
@@ -60,7 +60,7 @@ public class UserService {
 	public void partialUpdate(long id, final UserRequest u) {
 		User user = userRepository.findById(id)
 				.orElseThrow(() -> new InvalidInputException(MessageUtils.INVALID_USER_ID));
-		if(StringUtils.isNotBlank(u.getBirthDate())) user.setBirthDate(u.getBirthDate());
+		if(u.getBirthDate() != null) user.setBirthDate(u.getBirthDate());
 		if(StringUtils.isNotBlank(u.getEmail())) user.setEmail(u.getEmail());
 		if(StringUtils.isNotBlank(u.getName())) user.setName(u.getName());
 		if(StringUtils.isNotBlank(u.getPassword())) user.setPassword(u.getPassword());
