@@ -30,12 +30,12 @@ public class Store {
     private String name;
 
     @Column(length = 30)
-    private String industry;
+    private String business;
 
     @Builder
-    public Store(User user, String name, String industry) {
+    public Store(User user, String name, String business) {
         this.user = user;
         this.name = name;
-        this.industry = industry;
+        this.business = business;
     }
 }
