@@ -1,6 +1,10 @@
 package me.jiniworld.demo.controller.api;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import me.jiniworld.demo.domain.dto.request.UserRequest;
@@ -8,11 +12,16 @@ import me.jiniworld.demo.domain.dto.response.BaseResponse;
 import me.jiniworld.demo.domain.dto.response.DataResponse;
 import me.jiniworld.demo.domain.dto.response.data.UserData;
 import me.jiniworld.demo.service.UserService;
+import me.jiniworld.demo.util.MessageUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
+@ApiResponses({
+		@ApiResponse(responseCode = "200", description = MessageUtils.SUCCESS),
+		@ApiResponse(responseCode = "400", description = MessageUtils.FAIL,
+				content = @Content(schema = @Schema(implementation = BaseResponse.class)))})
 @Tag(name = "user", description = "사용자 API")
 @RequiredArgsConstructor
 @RequestMapping(path = "/api/users")

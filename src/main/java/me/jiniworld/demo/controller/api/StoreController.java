@@ -21,6 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@ApiResponses({
+		@ApiResponse(responseCode = "200", description = MessageUtils.SUCCESS),
+		@ApiResponse(responseCode = "400", description = MessageUtils.FAIL,
+				content = @Content(schema = @Schema(implementation = BaseResponse.class)))})
 @Tag(name = "store", description = "가게 API")
 @RequiredArgsConstructor
 @RequestMapping(path = "/api/stores")
@@ -36,11 +40,7 @@ public class StoreController {
 		return new DataResponse<>(stores);
 	}
 	
-	@Operation(summary = "가게 상세정보 조회", description = "가게의 상세정보와 해당 가게를 보유하고 있는 회원 정보를 조회합니다.",
-			responses = {
-				@ApiResponse(responseCode = "200", description = "가게 상세정보 조회 성공"),
-				@ApiResponse(responseCode = "400", description = MessageUtils.INVALID_STORE_ID,
-						content = @Content(schema = @Schema(implementation = BaseResponse.class))) })
+	@Operation(summary = "가게 상세정보 조회", description = "가게의 상세정보와 해당 가게를 보유하고 있는 회원 정보를 조회합니다.")
 	@GetMapping("/{id}")
 	public DataResponse<StoreData.Store> select(
 			@Parameter(name = "id", description = "가게 id", in = ParameterIn.PATH)

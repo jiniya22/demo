@@ -4,7 +4,6 @@ import me.jiniworld.demo.domain.dto.response.BaseResponse;
 import me.jiniworld.demo.util.InvalidInputException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -21,8 +20,10 @@ public class CustomResponseEntityExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     protected ResponseEntity<BaseResponse> handleException(MethodArgumentNotValidException e) {
-        String message = e.getBindingResult().getAllErrors().stream()
-                .findFirst().map(ObjectError::getDefaultMessage).orElse("");
+        String message = e.getBindingResult().getFieldErrors().stream()
+                .findFirst().map(fieldError ->
+                        String.format("%s 오류. %s", fieldError.getField(), fieldError.getDefaultMessage()))
+                .orElse(e.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseResponse(message));
     }
 
