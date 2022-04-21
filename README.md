@@ -26,4 +26,5 @@ Demo Web Application with Spring Data JPA
 11. [Generic을 이용하여 Response 일반화하기](https://blog.jiniworld.me/153)
 12. [@ControllerAdvice와 @ExceptionHandler를 이용한 전역 Error Handling](https://blog.jiniworld.me/154)
 13. [Response 전용 DTO 클래스 이용하기](https://blog.jiniworld.me/155)
+14. [Swagger v3 상세설정 및 request 유효성 검증](https://blog.jiniworld.me/156)
 
