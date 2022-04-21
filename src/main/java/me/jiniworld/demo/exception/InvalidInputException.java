@@ -1,4 +1,4 @@
-package me.jiniworld.demo.util;
+package me.jiniworld.demo.exception;
 
 public class InvalidInputException extends RuntimeException {
 

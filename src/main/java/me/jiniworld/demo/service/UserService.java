@@ -6,7 +6,7 @@ import me.jiniworld.demo.domain.dto.response.data.UserData;
 import me.jiniworld.demo.domain.entity.User;
 import me.jiniworld.demo.repository.UserRepository;
 import me.jiniworld.demo.util.DateTimeUtils;
-import me.jiniworld.demo.util.InvalidInputException;
+import me.jiniworld.demo.exception.InvalidInputException;
 import me.jiniworld.demo.util.MessageUtils;
 import me.jiniworld.demo.util.StringUtils;
 import org.springframework.stereotype.Service;

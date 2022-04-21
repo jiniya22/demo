@@ -1,7 +1,7 @@
 package me.jiniworld.demo.config;
 
 import me.jiniworld.demo.domain.dto.response.BaseResponse;
-import me.jiniworld.demo.util.InvalidInputException;
+import me.jiniworld.demo.exception.InvalidInputException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;

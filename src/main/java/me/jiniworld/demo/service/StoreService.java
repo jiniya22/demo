@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import me.jiniworld.demo.domain.dto.response.data.StoreData;
 import me.jiniworld.demo.domain.entity.Store;
 import me.jiniworld.demo.repository.StoreRepository;
-import me.jiniworld.demo.util.InvalidInputException;
+import me.jiniworld.demo.exception.InvalidInputException;
 import me.jiniworld.demo.util.MessageUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

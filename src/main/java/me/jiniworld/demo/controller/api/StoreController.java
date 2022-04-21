@@ -14,6 +14,7 @@ import me.jiniworld.demo.domain.dto.response.DataResponse;
 import me.jiniworld.demo.domain.dto.response.data.StoreData;
 import me.jiniworld.demo.service.StoreService;
 import me.jiniworld.demo.util.MessageUtils;
+import me.jiniworld.demo.util.ParameterDescriptionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,8 +44,7 @@ public class StoreController {
 	@Operation(summary = "가게 상세정보 조회", description = "가게의 상세정보와 해당 가게를 보유하고 있는 회원 정보를 조회합니다.")
 	@GetMapping("/{id}")
 	public DataResponse<StoreData.Store> select(
-			@Parameter(name = "id", description = "가게 id", in = ParameterIn.PATH)
-			@PathVariable("id") long id) {
+			@Parameter(description = ParameterDescriptionUtils.STORE_ID) @PathVariable("id") long id) {
 		return new DataResponse<>(storeService.select(id));
 	}
 }
