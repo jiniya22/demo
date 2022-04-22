@@ -22,10 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@ApiResponses({
-		@ApiResponse(responseCode = "200", description = MessageUtils.SUCCESS),
-		@ApiResponse(responseCode = "400", description = MessageUtils.FAIL,
-				content = @Content(schema = @Schema(implementation = BaseResponse.class)))})
 @Tag(name = "store", description = "가게 API")
 @RequiredArgsConstructor
 @RequestMapping(path = "/api/stores")
