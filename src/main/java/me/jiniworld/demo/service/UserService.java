@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import me.jiniworld.demo.domain.dto.request.UserRequest;
 import me.jiniworld.demo.domain.dto.response.data.UserData;
 import me.jiniworld.demo.domain.entity.User;
+import me.jiniworld.demo.exception.ResourceNotFoundException;
 import me.jiniworld.demo.repository.UserRepository;
 import me.jiniworld.demo.util.DateTimeUtils;
 import me.jiniworld.demo.exception.InvalidInputException;
@@ -29,7 +30,7 @@ public class UserService {
 	}
 
 	public UserData.User select(Long id) {
-		User user = userRepository.findById(id).orElseThrow(() -> new InvalidInputException(MessageUtils.INVALID_USER_ID));
+		User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(MessageUtils.INVALID_USER_ID));
 		return new UserData.User(user);
 	}
 

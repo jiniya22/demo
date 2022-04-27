@@ -3,6 +3,7 @@ package me.jiniworld.demo.service;
 import lombok.RequiredArgsConstructor;
 import me.jiniworld.demo.domain.dto.response.data.StoreData;
 import me.jiniworld.demo.domain.entity.Store;
+import me.jiniworld.demo.exception.ResourceNotFoundException;
 import me.jiniworld.demo.repository.StoreRepository;
 import me.jiniworld.demo.exception.InvalidInputException;
 import me.jiniworld.demo.util.MessageUtils;
@@ -26,7 +27,7 @@ public class StoreService {
 
 	public StoreData.Store select(Long id) {
 		Store store = storeRepository.findDistinctWithUserById(id)
-				.orElseThrow(() -> new InvalidInputException(MessageUtils.INVALID_STORE_ID));
+				.orElseThrow(() -> new ResourceNotFoundException(MessageUtils.INVALID_STORE_ID));
 		return new StoreData.Store(store);
 	}
 	
