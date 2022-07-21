@@ -9,18 +9,22 @@ import io.swagger.v3.oas.models.media.Content;
 import io.swagger.v3.oas.models.media.MediaType;
 import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.responses.ApiResponse;
+import io.swagger.v3.oas.models.servers.Server;
 import me.jiniworld.demo.util.MessageUtils;
 import org.springdoc.core.customizers.OpenApiCustomiser;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+
 @Component
 public class OpenApiConfig {
 
     @Bean
-    public OpenAPI openAPI(@Value("${springdoc.version}") String appVersion) {
-        Info info = new Info().title("Demo API").version(appVersion)
+    public OpenAPI openAPI(@Value("${springdoc.version}") String appVersion, @Value("${demo.url}") String url,
+            @Value("${spring.profiles.active}") String active) {
+        Info info = new Info().title("Demo API - " + active).version(appVersion)
                 .description("Spring Data JPA Tutorial")
                 .termsOfService("http://swagger.io/terms/")
                 .contact(new Contact().name("jini").url("https://blog.jiniworld.me/").email("jini@jiniworld.me"))
@@ -28,7 +32,8 @@ public class OpenApiConfig {
 
         return new OpenAPI()
                 .components(new Components())
-                .info(info);
+                .info(info)
+                .servers(Arrays.asList(new Server().url(url).description("demo (" + active +")")));
     }
 
     @Bean

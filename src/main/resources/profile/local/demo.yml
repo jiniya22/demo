@@ -1,0 +1,2 @@
+demo:
+  url: 'http://localhost:${server.port}'
