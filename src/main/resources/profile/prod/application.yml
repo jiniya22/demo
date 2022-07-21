@@ -6,7 +6,6 @@ spring:
       - classpath:/demo.yml
   profiles:
     active: prod
-    import
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     url: "jdbc:mariadb://localhost:3306/jiniworld_demo?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&tinyInt1isBit=false"
