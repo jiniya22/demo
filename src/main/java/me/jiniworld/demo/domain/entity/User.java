@@ -11,12 +11,9 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @NoArgsConstructor
@@ -25,9 +22,7 @@ import java.util.List;
 @Entity
 @Table(name = "user", indexes = {@Index(name = "UK_USER_EMAIL", columnList = "email", unique = true)})
 @Where(clause = "active = true")
-public class User implements Serializable {
-	
-	private static final long serialVersionUID = -4253749884585192245L;
+public class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,18 +56,19 @@ public class User implements Serializable {
 	@ColumnDefault("true")
 	@Setter private boolean active;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(nullable = false, updatable = false)
+	@Column(nullable = false, updatable = false, columnDefinition = "DATETIME")
 	@ColumnDefault("CURRENT_TIMESTAMP()")
-	private Date createdAt;
-	
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date updatedAt;
+	private LocalDateTime createdAt;
+
+	@Column(columnDefinition = "DATETIME")
+	private LocalDateTime updatedAt;
 
 	@JsonIgnore
-	@OneToMany
-	@JoinColumn(name = "user_id")
+	@OneToMany(mappedBy = "user")
 	@Setter private List<Store> stores = new ArrayList<>();
+
+	@Version
+	private Long version;
 
 	@Builder
 	public User(String type, String email, String name, String sex, LocalDate birthDate, String phoneNumber,
@@ -90,13 +86,13 @@ public class User implements Serializable {
 	
 	@PrePersist
 	protected void onCreate() {
-		createdAt = Timestamp.valueOf(LocalDateTime.now());
+		createdAt = LocalDateTime.now();
 		active = true;
 	}
 	
 	@PreUpdate
 	protected void onUpdate() {
-		updatedAt = Timestamp.valueOf(LocalDateTime.now());
+		updatedAt = LocalDateTime.now();
 	}
 	
 }

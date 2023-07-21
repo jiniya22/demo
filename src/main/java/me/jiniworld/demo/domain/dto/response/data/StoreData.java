@@ -1,6 +1,7 @@
 package me.jiniworld.demo.domain.dto.response.data;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import me.jiniworld.demo.util.SchemaDescriptionUtils;
@@ -8,7 +9,7 @@ import me.jiniworld.demo.util.SchemaDescriptionUtils;
 import java.util.Optional;
 
 @Data
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class StoreData {
 
     @Data
@@ -38,7 +39,7 @@ public class StoreData {
 
         public Store(me.jiniworld.demo.domain.entity.Store s) {
             super(s);
-            this.user = new UserData.UserSimple(Optional.ofNullable(s.getUser()).orElse(null));
+            this.user = Optional.ofNullable(s.getUser()).map(UserData.UserSimple::new).orElse(null);
         }
 
     }

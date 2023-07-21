@@ -1,6 +1,7 @@
 package me.jiniworld.demo.domain.dto.response.data;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import me.jiniworld.demo.util.SchemaDescriptionUtils;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Data
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class UserData {
 
     @Data
@@ -48,6 +49,8 @@ public class UserData {
         @Schema(description = SchemaDescriptionUtils.User.phoneNumber)
         private String phoneNumber;
 
+        private long version;
+
         @Schema(description = SchemaDescriptionUtils.User.stores)
         private List<StoreData.StoreSimple> stores;
 
@@ -56,6 +59,7 @@ public class UserData {
             this.sex = u.getSex();
             this.birthDate = u.getBirthDate();
             this.phoneNumber = u.getPhoneNumber();
+            this.version = u.getVersion();
             this.stores = u.getStores().stream().map(StoreData.StoreSimple::new).collect(Collectors.toList());
         }
     }
