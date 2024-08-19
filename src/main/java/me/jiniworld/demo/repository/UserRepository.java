@@ -20,4 +20,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	//	@Query("SELECT DISTINCT u FROM User u join fetch u.stores WHERE u.id = ?1")
 	@EntityGraph(attributePaths = "stores")
 	Optional<User> findDistinctWithStoresById(Long id);
+
+//	@Query("SELECT u FROM User u join fetch u.department WHERE u.id = ?1")
+	@EntityGraph(attributePaths = "department")
+	Optional<User> findWithDepartmentById(Long id);
 }

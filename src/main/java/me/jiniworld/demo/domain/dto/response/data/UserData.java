@@ -63,4 +63,20 @@ public class UserData {
             this.stores = u.getStores().stream().map(StoreData.StoreSimple::new).collect(Collectors.toList());
         }
     }
+
+    @Data
+    @Schema(description = "사용자 상세정보2")
+    public static class User2 extends UserSimple {
+
+        @Schema(description = SchemaDescriptionUtils.User.stores)
+        private List<StoreData.StoreSimple> stores;
+
+        private String departmentName;
+
+        public User2(me.jiniworld.demo.domain.entity.User u) {
+            super(u);
+            this.stores = u.getStores().stream().map(StoreData.StoreSimple::new).collect(Collectors.toList());
+            this.departmentName = u.getDepartment().getName();
+        }
+    }
 }

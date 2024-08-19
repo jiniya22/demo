@@ -30,6 +30,17 @@ public class UserController {
 		return new DataResponse<>(users);
 	}
 
+	@GetMapping("/test")
+	public DataResponse<List<UserData.User2>> selectAll2() {
+		List<UserData.User2> users = userService.test();
+		return new DataResponse<>(users);
+	}
+
+	@GetMapping("/test2/{id}")
+	public DataResponse<UserData.User2> test2(@PathVariable("id") long id) {
+		return new DataResponse<>(userService.test2(id));
+	}
+
 	@Operation(summary = "사용자 추가", description = "사용자을 추가합니다.")
 	@PostMapping("")
 	public BaseResponse insert(@RequestBody @Valid final UserRequest user) {

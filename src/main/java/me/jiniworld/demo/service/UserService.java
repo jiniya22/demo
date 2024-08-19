@@ -29,6 +29,17 @@ public class UserService {
 				.stream().map(UserData.UserSimple::new).collect(Collectors.toList());
 	}
 
+	public List<UserData.User2> test() {
+		List<User> users = userRepository.findAll();
+		return users
+			.stream().map(UserData.User2::new).collect(Collectors.toList());
+	}
+
+	public UserData.User2 test2(Long id) {
+		User user = userRepository.findWithDepartmentById(id).orElseThrow(() -> new ResourceNotFoundException(MessageUtils.INVALID_USER_ID));
+		return new UserData.User2(user);
+	}
+
 	public UserData.User select(Long id) {
 		User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(MessageUtils.INVALID_USER_ID));
 		return new UserData.User(user);

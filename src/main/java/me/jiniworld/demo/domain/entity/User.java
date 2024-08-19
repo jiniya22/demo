@@ -5,12 +5,13 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.Where;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
+import javax.persistence.Index;
+import javax.persistence.Table;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -64,7 +65,13 @@ public class User {
 	private LocalDateTime updatedAt;
 
 	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "department_id", foreignKey = @ForeignKey(name = "FK_USER_DEPARTMENT"))
+	private Department department;
+
+	@JsonIgnore
 	@OneToMany(mappedBy = "user")
+	@Fetch(FetchMode.SUBSELECT)
 	@Setter private List<Store> stores = new ArrayList<>();
 
 	@Version
